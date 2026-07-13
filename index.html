@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nevermore · un mensaje bajo la noche estrellada</title>
+<meta name="description" content="Un mensaje breve bajo la noche estrellada. Solo quería saber cómo estás.">
+<meta property="og:title" content="Un mensaje bajo la noche estrellada">
+<meta property="og:description" content="Contacto cero... pero solo quería saber que estás bien.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cinzel:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --night-0:#05060f;
+    --night-1:#0a0e27;
+    --night-2:#131a44;
+    --swirl:#2a3a7a;
+    --star:#ffd76b;
+    --star-soft:#f6e6a8;
+    --gold:#E8B554;
+    --gold-deep:#C9923B;
+    --blood:#7d1220;
+    --blood-bright:#b21e30;
+    --ink:#e9ecff;
+    --ink-dim:#9aa0c9;
+    --serif:'Cormorant Garamond', Georgia, serif;
+    --display:'Cinzel', serif;
+    --sans:'Inter', system-ui, sans-serif;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--sans);
+    background:var(--night-0);
+    color:var(--ink);
+    overflow-x:hidden;
+    min-height:100vh;
+    position:relative;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ----------  Cielo estrellado (Van Gogh)  ---------- */
+  #sky{position:fixed;inset:0;z-index:0;pointer-events:none}
+  .swirls{
+    position:fixed;inset:-10%;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(60vw 50vh at 20% 15%, rgba(60,90,190,.45), transparent 60%),
+      radial-gradient(55vw 45vh at 82% 22%, rgba(90,120,220,.35), transparent 62%),
+      radial-gradient(70vw 60vh at 50% 90%, rgba(30,50,130,.5), transparent 65%),
+      radial-gradient(40vw 40vh at 88% 78%, rgba(200,146,59,.14), transparent 60%),
+      linear-gradient(180deg, var(--night-1), var(--night-0) 70%);
+    animation:drift 26s ease-in-out infinite alternate;
+  }
+  @keyframes drift{
+    0%{transform:translate3d(0,0,0) scale(1.02)}
+    100%{transform:translate3d(-2%,1.5%,0) scale(1.06)}
+  }
+
+  /* grano */
+  .grain{
+    position:fixed;inset:0;z-index:40;pointer-events:none;opacity:.05;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* viñeta */
+  .vignette{position:fixed;inset:0;z-index:39;pointer-events:none;
+    box-shadow:inset 0 0 30vw 8vw rgba(0,0,0,.55)}
+
+  /* ----------  Murciélagos  ---------- */
+  .bat{position:fixed;z-index:2;width:38px;opacity:.0;color:#05060f;filter:drop-shadow(0 4px 6px rgba(0,0,0,.5));pointer-events:none}
+
+  /* ----------  Layout  ---------- */
+  .wrap{position:relative;z-index:10;max-width:640px;margin:0 auto;padding:clamp(3rem,8vh,7rem) 1.35rem 5rem}
+
+  .eyebrow{
+    font-family:var(--display);font-size:.72rem;letter-spacing:.42em;text-transform:uppercase;
+    color:var(--gold);text-align:center;margin-bottom:1.4rem;opacity:.85;
+  }
+
+  .raven-wrap{display:flex;justify-content:center;margin-bottom:.5rem}
+  .raven{width:120px;color:#0b0d1c;filter:drop-shadow(0 8px 20px rgba(0,0,0,.6))}
+  .raven .eye{fill:var(--blood-bright)}
+
+  h1{
+    font-family:var(--serif);font-weight:500;line-height:1.05;text-align:center;
+    font-size:clamp(2.4rem,8vw,4.2rem);letter-spacing:.01em;
+    background:linear-gradient(180deg,#fff,var(--star-soft) 55%,var(--gold-deep));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    text-shadow:0 2px 40px rgba(232,181,84,.18);
+  }
+  h1 .word{display:inline-block}
+  .sub{
+    text-align:center;font-family:var(--serif);font-style:italic;
+    font-size:clamp(1.05rem,3.6vw,1.35rem);color:var(--ink-dim);
+    max-width:34ch;margin:1.1rem auto 0;line-height:1.5;
+  }
+  .rule{width:60px;height:1px;margin:2.2rem auto 0;
+    background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+
+  /* ----------  Preguntas  ---------- */
+  form{margin-top:3rem;display:flex;flex-direction:column;gap:1.4rem}
+  .q{
+    position:relative;
+    background:linear-gradient(160deg, rgba(19,26,68,.72), rgba(10,14,39,.72));
+    border:1px solid rgba(232,181,84,.16);
+    border-radius:16px;padding:1.45rem 1.4rem 1.35rem;
+    backdrop-filter:blur(8px);
+    box-shadow:0 12px 40px rgba(0,0,0,.35);
+    opacity:0;transform:translateY(28px);
+  }
+  .q::before{
+    content:attr(data-n);position:absolute;top:-.6rem;left:1.2rem;
+    font-family:var(--display);font-size:.72rem;letter-spacing:.2em;
+    color:var(--night-0);background:var(--gold);
+    padding:.15rem .55rem;border-radius:20px;
+  }
+  .q label{display:block;font-family:var(--serif);font-size:1.28rem;line-height:1.35;color:var(--ink);margin-bottom:.9rem}
+  .q .hint{color:var(--ink-dim);font-style:italic;font-size:.95rem}
+
+  textarea,input[type=text]{
+    width:100%;background:rgba(5,6,15,.55);border:1px solid rgba(154,160,201,.22);
+    border-radius:10px;color:var(--ink);font-family:var(--sans);font-size:1rem;
+    padding:.8rem .9rem;resize:vertical;transition:border-color .3s, box-shadow .3s;
+  }
+  textarea{min-height:74px}
+  textarea:focus,input[type=text]:focus{outline:none;border-color:var(--gold);
+    box-shadow:0 0 0 3px rgba(232,181,84,.14)}
+  textarea::placeholder,input::placeholder{color:rgba(154,160,201,.5)}
+
+  /* opciones tipo píldora */
+  .opts{display:flex;flex-wrap:wrap;gap:.6rem}
+  .opt{position:relative}
+  .opt input{position:absolute;opacity:0;pointer-events:none}
+  .opt label{
+    display:inline-block;margin:0;font-family:var(--sans);font-size:.95rem;
+    padding:.55rem 1.05rem;border-radius:40px;cursor:pointer;
+    border:1px solid rgba(154,160,201,.3);color:var(--ink-dim);
+    transition:all .25s cubic-bezier(.2,.8,.2,1);
+  }
+  .opt label:hover{border-color:var(--gold);color:var(--ink);transform:translateY(-2px)}
+  .opt input:checked + label{
+    background:linear-gradient(135deg,var(--gold),var(--gold-deep));
+    color:var(--night-0);border-color:transparent;font-weight:500;
+    box-shadow:0 6px 18px rgba(232,181,84,.3);
+  }
+  .opt.blood input:checked + label{
+    background:linear-gradient(135deg,var(--blood-bright),var(--blood));color:#fff;
+    box-shadow:0 6px 18px rgba(178,30,48,.35);
+  }
+
+  /* despedida */
+  .closing{
+    margin-top:.4rem;text-align:center;font-family:var(--serif);font-style:italic;
+    font-size:1.2rem;color:var(--star-soft);line-height:1.55;
+    padding:1.6rem 1rem;opacity:0;transform:translateY(24px);
+  }
+  .closing strong{color:var(--gold);font-style:normal;font-weight:600}
+
+  /* botón */
+  .send-wrap{display:flex;justify-content:center;margin-top:1rem;opacity:0;transform:translateY(20px)}
+  button.send{
+    position:relative;font-family:var(--display);font-size:.85rem;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--night-0);cursor:pointer;border:none;
+    padding:1.05rem 2.6rem;border-radius:50px;
+    background:linear-gradient(135deg,var(--star),var(--gold-deep));
+    box-shadow:0 10px 30px rgba(232,181,84,.35);
+    transition:transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s;
+    overflow:hidden;
+  }
+  button.send:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 16px 40px rgba(232,181,84,.5)}
+  button.send:active{transform:translateY(0) scale(.99)}
+  button.send:disabled{opacity:.6;cursor:wait}
+  button.send::after{
+    content:"";position:absolute;top:0;left:-120%;width:60%;height:100%;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.6),transparent);
+    transform:skewX(-20deg);animation:sheen 4.5s ease-in-out infinite;
+  }
+  @keyframes sheen{0%,60%{left:-120%}80%,100%{left:130%}}
+
+  /* pantalla de gracias */
+  .thanks{
+    position:fixed;inset:0;z-index:60;display:none;flex-direction:column;
+    align-items:center;justify-content:center;text-align:center;padding:2rem;
+    background:radial-gradient(circle at 50% 40%, rgba(19,26,68,.96), rgba(5,6,15,.99));
+    backdrop-filter:blur(4px);
+  }
+  .thanks.show{display:flex}
+  .thanks .raven-fly{width:130px;color:#0b0d1c;filter:drop-shadow(0 10px 30px rgba(0,0,0,.7));margin-bottom:1.6rem}
+  .thanks h2{font-family:var(--serif);font-weight:500;font-size:clamp(2rem,7vw,3rem);
+    background:linear-gradient(180deg,#fff,var(--gold-deep));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .thanks p{font-family:var(--serif);font-style:italic;color:var(--ink-dim);font-size:1.15rem;margin-top:1rem;max-width:30ch;line-height:1.6}
+  .thanks .nevermore{margin-top:2rem;font-family:var(--display);letter-spacing:.35em;font-size:.75rem;color:var(--gold);opacity:.8}
+
+  .footnote{text-align:center;margin-top:3rem;font-size:.72rem;letter-spacing:.15em;
+    color:rgba(154,160,201,.4);font-family:var(--display)}
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+    .q,.closing,.send-wrap{opacity:1!important;transform:none!important}
+  }
+</style>
+</head>
+<body>
+  <div class="swirls"></div>
+  <canvas id="sky"></canvas>
+  <div class="vignette"></div>
+  <div class="grain"></div>
+
+  <!-- murciélagos -->
+  <svg class="bat" id="bat1" viewBox="0 0 100 40" fill="currentColor"><path d="M50 12c-4-8-12-10-18-6-2-6-8-4-8-4 2 3 1 6 1 6-6-2-12 2-14 8 4-2 8-1 8-1-3 3-3 8-3 8 4-5 9-5 9-5-1 4 2 7 2 7 1-4 4-6 4-6 3 3 8 3 8 3s5 0 8-3c0 0 3 2 4 6 0 0 3-3 2-7 0 0 5 0 9 5 0 0 0-5-3-8 0 0 4-1 8 1-2-6-8-10-14-8 0 0-1-3 1-6 0 0-6-2-8 4-6-4-14-2-18 6z"/></svg>
+  <svg class="bat" id="bat2" viewBox="0 0 100 40" fill="currentColor"><path d="M50 12c-4-8-12-10-18-6-2-6-8-4-8-4 2 3 1 6 1 6-6-2-12 2-14 8 4-2 8-1 8-1-3 3-3 8-3 8 4-5 9-5 9-5-1 4 2 7 2 7 1-4 4-6 4-6 3 3 8 3 8 3s5 0 8-3c0 0 3 2 4 6 0 0 3-3 2-7 0 0 5 0 9 5 0 0 0-5-3-8 0 0 4-1 8 1-2-6-8-10-14-8 0 0-1-3 1-6 0 0-6-2-8 4-6-4-14-2-18 6z"/></svg>
+
+  <main class="wrap">
+    <div class="eyebrow">Contacto cero · una excepción</div>
+
+    <div class="raven-wrap">
+      <svg class="raven" viewBox="0 0 200 200" aria-hidden="true">
+        <path fill="currentColor" d="M60 150c-6-2-14-8-16-20-2-10 2-18 2-18-8-2-14-10-14-10 6 2 12 0 12 0-6-6-8-16-8-16 8 6 16 6 16 6-2-8 2-16 2-16 4 8 12 12 12 12 4-6 12-10 20-10 22 0 40 16 46 34 4 12 2 22-2 30 8 2 16 0 22-4-2 8-8 14-16 16 4 2 10 2 16 0-6 8-16 12-26 12 4 4 10 6 16 6-10 6-24 6-36 0-14 6-40 4-54-2-8 2-16-2-16-2 8 0 12-6 12-6-8 2-14 0-14 0z"/>
+        <circle class="eye" cx="86" cy="96" r="5"/>
+      </svg>
+    </div>
+
+    <h1><span class="word">Solo</span> <span class="word">quería</span> <span class="word">saber</span> <span class="word">cómo</span> <span class="word">estás</span></h1>
+    <p class="sub">Dijimos contacto cero, y lo respeto. Pero el cuervo me trajo una duda y no me dejaba dormir. Cinco preguntas, nada más. No hace falta que hablemos.</p>
+    <div class="rule"></div>
+
+    <form id="form">
+      <div class="q" data-n="I">
+        <label>¿Cómo estás? <span class="hint">de verdad, sin filtro</span></label>
+        <textarea name="como_estas" placeholder="Escribe lo que quieras..."></textarea>
+      </div>
+
+      <div class="q" data-n="II">
+        <label>¿Estás bien? ¿Cómo está Estados Unidos?</label>
+        <div class="opts" data-single>
+          <span class="opt"><input type="radio" name="usa" id="usa1" value="Todo bien, me encanta"><label for="usa1">Todo bien, me encanta</label></span>
+          <span class="opt"><input type="radio" name="usa" id="usa2" value="Ahí voy, adaptándome"><label for="usa2">Ahí voy, adaptándome</label></span>
+          <span class="opt"><input type="radio" name="usa" id="usa3" value="Extraño cosas"><label for="usa3">Extraño cosas</label></span>
+        </div>
+        <textarea name="usa_extra" placeholder="Cuéntame más si quieres..." style="margin-top:.8rem"></textarea>
+      </div>
+
+      <div class="q" data-n="III">
+        <label>¿Ya tomaste una Monster?</label>
+        <div class="opts" data-single>
+          <span class="opt"><input type="radio" name="monster" id="m1" value="Sí, obvio"><label for="m1">Sí, obvio 🖤</label></span>
+          <span class="opt"><input type="radio" name="monster" id="m2" value="Todavía no"><label for="m2">Todavía no</label></span>
+          <span class="opt"><input type="radio" name="monster" id="m3" value="Ya ni me acuerdo"><label for="m3">Ya ni me acuerdo</label></span>
+        </div>
+      </div>
+
+      <div class="q" data-n="IV">
+        <label>¿Y había de sandía? <span class="hint">la pregunta importante</span></label>
+        <div class="opts" data-single>
+          <span class="opt blood"><input type="radio" name="sandia" id="s1" value="Sí había!!"><label for="s1">¡Sí había! 🍉</label></span>
+          <span class="opt"><input type="radio" name="sandia" id="s2" value="No había :("><label for="s2">No había :(</label></span>
+          <span class="opt"><input type="radio" name="sandia" id="s3" value="No busqué"><label for="s3">No busqué</label></span>
+        </div>
+      </div>
+
+      <div class="q" data-n="V">
+        <label>¿Te hicieron una revisión extra de seguridad?</label>
+        <div class="opts" data-single>
+          <span class="opt blood"><input type="radio" name="revision" id="r1" value="Sí, me apartaron"><label for="r1">Sí, me apartaron 👀</label></span>
+          <span class="opt"><input type="radio" name="revision" id="r2" value="Pasé limpia"><label for="r2">Pasé limpia</label></span>
+          <span class="opt"><input type="radio" name="revision" id="r3" value="Casi, me salvé"><label for="r3">Casi, me salvé</label></span>
+        </div>
+      </div>
+
+      <p class="closing">Y nada más. <br>Espero que estés disfrutando muchísimo a tu papá.<br><strong>Vale oro.</strong></p>
+
+      <div class="send-wrap">
+        <button type="submit" class="send">Enviar bajo la luna</button>
+      </div>
+    </form>
+
+    <div class="footnote">NEVERMORE · MMXXVI</div>
+  </main>
+
+  <!-- pantalla de gracias -->
+  <div class="thanks" id="thanks">
+    <svg class="raven-fly" viewBox="0 0 200 200" aria-hidden="true">
+      <path fill="currentColor" d="M100 60c-14-20-40-16-52 0 0 0-16-4-24 8 8 0 12 4 12 4-12 4-16 16-16 16 12-6 20-2 20-2-8 8-6 20-6 20 8-12 18-12 18-12s10-8 24-8 24 8 24 8 10 0 18 12c0 0 2-12-6-20 0 0 8-4 20 2 0 0-4-12-16-16 0 0 4-4 12-4-8-12-24-8-24-8-8-16-34-20-48 0z"/>
+    </svg>
+    <h2>Gracias.</h2>
+    <p>El cuervo ya voló con tu respuesta. Cuídate mucho por allá.</p>
+    <div class="nevermore">— Nevermore —</div>
+  </div>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script>
+  /* ============================================================
+     CONFIG — pega aquí la URL de tu Google Apps Script (paso 2 del README)
+     ============================================================ */
+  const SHEETS_URL = "PEGA_AQUI_TU_URL_DE_APPS_SCRIPT";
+
+  /* ----------  Cielo estrellado en canvas  ---------- */
+  const cv = document.getElementById('sky');
+  const cx = cv.getContext('2d');
+  let stars = [], W, H;
+  function resize(){
+    W = cv.width = innerWidth; H = cv.height = innerHeight;
+    const n = Math.min(160, Math.floor(W*H/9000));
+    stars = Array.from({length:n}, ()=>({
+      x:Math.random()*W, y:Math.random()*H,
+      r:Math.random()*1.6+.3,
+      base:Math.random()*.5+.3,
+      tw:Math.random()*Math.PI*2,
+      sp:Math.random()*.02+.005,
+      warm:Math.random()>.6
+    }));
+  }
+  addEventListener('resize', resize); resize();
+  function draw(){
+    cx.clearRect(0,0,W,H);
+    for(const s of stars){
+      s.tw += s.sp;
+      const a = s.base + Math.sin(s.tw)*.35;
+      cx.beginPath();
+      cx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+      cx.fillStyle = s.warm
+        ? `rgba(255,215,107,${Math.max(0,a)})`
+        : `rgba(220,230,255,${Math.max(0,a)})`;
+      cx.shadowBlur = 6; cx.shadowColor = s.warm ? 'rgba(255,215,107,.6)' : 'rgba(200,220,255,.5)';
+      cx.fill();
+    }
+    requestAnimationFrame(draw);
+  }
+  if(!matchMedia('(prefers-reduced-motion:reduce)').matches) draw();
+  else { for(const s of stars){cx.beginPath();cx.arc(s.x,s.y,s.r,0,7);cx.fillStyle='rgba(220,230,255,.7)';cx.fill();} }
+
+  /* ----------  Entrada coreografiada (GSAP)  ---------- */
+  window.addEventListener('load', ()=>{
+    if(matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+    const tl = gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.from('.eyebrow',{y:-14,opacity:0,duration:.8})
+      .from('.raven',{y:-30,opacity:0,scale:.8,duration:1,ease:'back.out(1.6)'},'-=.4')
+      .from('h1 .word',{y:40,opacity:0,duration:.9,stagger:.12},'-=.5')
+      .from('.sub',{y:20,opacity:0,duration:.8},'-=.4')
+      .from('.rule',{scaleX:0,duration:.8,transformOrigin:'center'},'-=.5')
+      .to('.q',{y:0,opacity:1,duration:.8,stagger:.14},'-=.2')
+      .to('.closing',{y:0,opacity:1,duration:.9},'-=.2')
+      .to('.send-wrap',{y:0,opacity:1,duration:.7},'-=.4');
+
+    // parpadeo del ojo del cuervo
+    gsap.to('.raven .eye',{opacity:.35,duration:.12,repeat:-1,repeatDelay:2.4,yoyo:true,ease:'none'});
+
+    // murciélagos cruzando
+    flyBat('#bat1', 8, 6);
+    flyBat('#bat2', 18, 9);
+  });
+
+  function flyBat(sel, delay, dur){
+    const el = document.querySelector(sel);
+    const y = Math.random()*innerHeight*.4 + 40;
+    gsap.set(el,{x:-60, y, opacity:.6});
+    gsap.to(el,{
+      x:innerWidth+80, opacity:.6, duration:dur, delay, ease:'sine.inOut',
+      repeat:-1, repeatDelay:14,
+      onRepeat:()=>gsap.set(el,{y:Math.random()*innerHeight*.4+40})
+    });
+    gsap.to(el,{scaleY:.6,duration:.18,repeat:-1,yoyo:true,ease:'sine.inOut',transformOrigin:'center'});
+  }
+
+  /* ----------  Envío  ---------- */
+  const form = document.getElementById('form');
+  form.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    const btn = form.querySelector('button.send');
+    btn.disabled = true; btn.textContent = 'Enviando...';
+
+    const data = new FormData(form);
+    data.append('_fecha', new Date().toLocaleString('es-BO'));
+
+    try{
+      if(SHEETS_URL && !SHEETS_URL.startsWith('PEGA')){
+        await fetch(SHEETS_URL, {method:'POST', mode:'no-cors', body:data});
+      } else {
+        console.warn('SHEETS_URL no configurada — respuesta no guardada.');
+        await new Promise(r=>setTimeout(r,600));
+      }
+      showThanks();
+    }catch(err){
+      console.error(err);
+      // aún así mostramos gracias (no-cors no devuelve estado)
+      showThanks();
+    }
+  });
+
+  function showThanks(){
+    const t = document.getElementById('thanks');
+    t.classList.add('show');
+    if(!matchMedia('(prefers-reduced-motion:reduce)').matches){
+      gsap.from('.thanks .raven-fly',{y:40,opacity:0,scale:.7,duration:1,ease:'back.out(1.5)'});
+      gsap.to('.thanks .raven-fly',{y:-14,duration:2.2,repeat:-1,yoyo:true,ease:'sine.inOut',delay:1});
+      gsap.from('.thanks h2',{y:24,opacity:0,duration:.9,delay:.3});
+      gsap.from('.thanks p',{y:20,opacity:0,duration:.9,delay:.5});
+      gsap.from('.thanks .nevermore',{opacity:0,duration:1.2,delay:.9});
+    }
+  }
+  </script>
+</body>
+</html>
