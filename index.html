@@ -13,18 +13,19 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cinzel:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --night-0:#05060f;
-    --night-1:#0a0e27;
-    --night-2:#131a44;
-    --swirl:#2a3a7a;
-    --star:#ffd76b;
-    --star-soft:#f6e6a8;
-    --gold:#E8B554;
-    --gold-deep:#C9923B;
-    --blood:#7d1220;
-    --blood-bright:#b21e30;
-    --ink:#e9ecff;
-    --ink-dim:#9aa0c9;
+    /* The Crow (1994) — noir monocromático + rojo sangre */
+    --night-0:#050507;
+    --night-1:#0a0b12;
+    --night-2:#14161f;
+    --swirl:#20232f;
+    --star:#e8ecff;
+    --star-soft:#c9cfe6;
+    --gold:#b9c0d8;      /* plata fría (bordes, reglas) */
+    --gold-deep:#767c96;
+    --blood:#6b0f16;
+    --blood-bright:#c81027;   /* el único color vivo */
+    --ink:#eef0f8;
+    --ink-dim:#8b90a8;
     --serif:'Cormorant Garamond', Georgia, serif;
     --display:'Cinzel', serif;
     --sans:'Inter', system-ui, sans-serif;
@@ -47,13 +48,15 @@
   .swirls{
     position:fixed;inset:-10%;z-index:0;pointer-events:none;
     background:
-      radial-gradient(60vw 50vh at 20% 15%, rgba(60,90,190,.45), transparent 60%),
-      radial-gradient(55vw 45vh at 82% 22%, rgba(90,120,220,.35), transparent 62%),
-      radial-gradient(70vw 60vh at 50% 90%, rgba(30,50,130,.5), transparent 65%),
-      radial-gradient(40vw 40vh at 88% 78%, rgba(200,146,59,.14), transparent 60%),
-      linear-gradient(180deg, var(--night-1), var(--night-0) 70%);
+      radial-gradient(60vw 50vh at 22% 12%, rgba(60,70,110,.30), transparent 60%),
+      radial-gradient(55vw 45vh at 82% 20%, rgba(45,55,90,.28), transparent 62%),
+      radial-gradient(70vw 60vh at 50% 92%, rgba(20,24,40,.6), transparent 65%),
+      radial-gradient(46vw 46vh at 84% 82%, rgba(200,16,39,.10), transparent 60%),
+      linear-gradient(180deg, var(--night-1), var(--night-0) 72%);
     animation:drift 26s ease-in-out infinite alternate;
   }
+  /* lluvia — no puede llover todo el tiempo */
+  #rain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.5}
   @keyframes drift{
     0%{transform:translate3d(0,0,0) scale(1.02)}
     100%{transform:translate3d(-2%,1.5%,0) scale(1.06)}
@@ -81,21 +84,26 @@
   }
 
   .raven-wrap{display:flex;justify-content:center;margin-bottom:.5rem}
-  .raven{width:120px;color:#0b0d1c;filter:drop-shadow(0 8px 20px rgba(0,0,0,.6))}
-  .raven .eye{fill:var(--blood-bright)}
+  .raven{width:120px;color:#0b0b12;filter:drop-shadow(0 8px 20px rgba(0,0,0,.7))}
+  .raven .eye{fill:#fff;filter:drop-shadow(0 0 6px rgba(255,255,255,.9))}
 
   h1{
     font-family:var(--serif);font-weight:500;line-height:1.05;text-align:center;
     font-size:clamp(2.4rem,8vw,4.2rem);letter-spacing:.01em;
-    background:linear-gradient(180deg,#fff,var(--star-soft) 55%,var(--gold-deep));
+    background:linear-gradient(180deg,#fff,var(--star-soft) 50%,#8b90a8);
     -webkit-background-clip:text;background-clip:text;color:transparent;
-    text-shadow:0 2px 40px rgba(232,181,84,.18);
+    text-shadow:0 2px 40px rgba(200,16,39,.20);
   }
   h1 .word{display:inline-block}
+  .quote{
+    text-align:center;font-family:var(--display);letter-spacing:.14em;
+    font-size:clamp(.9rem,3vw,1.1rem);color:var(--blood-bright);
+    margin:1.4rem auto 0;text-shadow:0 0 18px rgba(200,16,39,.5);
+  }
   .sub{
     text-align:center;font-family:var(--serif);font-style:italic;
     font-size:clamp(1.05rem,3.6vw,1.35rem);color:var(--ink-dim);
-    max-width:34ch;margin:1.1rem auto 0;line-height:1.5;
+    max-width:34ch;margin:1rem auto 0;line-height:1.5;
   }
   .rule{width:60px;height:1px;margin:2.2rem auto 0;
     background:linear-gradient(90deg,transparent,var(--gold),transparent)}
@@ -157,20 +165,20 @@
     font-size:1.2rem;color:var(--star-soft);line-height:1.55;
     padding:1.6rem 1rem;opacity:0;transform:translateY(24px);
   }
-  .closing strong{color:var(--gold);font-style:normal;font-weight:600}
+  .closing strong{color:var(--blood-bright);font-style:normal;font-weight:600;text-shadow:0 0 16px rgba(200,16,39,.4)}
 
   /* botón */
   .send-wrap{display:flex;justify-content:center;margin-top:1rem;opacity:0;transform:translateY(20px)}
   button.send{
     position:relative;font-family:var(--display);font-size:.85rem;letter-spacing:.22em;
     text-transform:uppercase;color:var(--night-0);cursor:pointer;border:none;
-    padding:1.05rem 2.6rem;border-radius:50px;
-    background:linear-gradient(135deg,var(--star),var(--gold-deep));
-    box-shadow:0 10px 30px rgba(232,181,84,.35);
+    padding:1.05rem 2.6rem;border-radius:50px;color:#fff;
+    background:linear-gradient(135deg,var(--blood-bright),var(--blood));
+    box-shadow:0 10px 30px rgba(200,16,39,.4);
     transition:transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s;
     overflow:hidden;
   }
-  button.send:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 16px 40px rgba(232,181,84,.5)}
+  button.send:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 16px 44px rgba(200,16,39,.6)}
   button.send:active{transform:translateY(0) scale(.99)}
   button.send:disabled{opacity:.6;cursor:wait}
   button.send::after{
@@ -206,6 +214,7 @@
 <body>
   <div class="swirls"></div>
   <canvas id="sky"></canvas>
+  <canvas id="rain"></canvas>
   <div class="vignette"></div>
   <div class="grain"></div>
 
@@ -214,7 +223,7 @@
   <svg class="bat" id="bat2" viewBox="0 0 100 40" fill="currentColor"><path d="M50 12c-4-8-12-10-18-6-2-6-8-4-8-4 2 3 1 6 1 6-6-2-12 2-14 8 4-2 8-1 8-1-3 3-3 8-3 8 4-5 9-5 9-5-1 4 2 7 2 7 1-4 4-6 4-6 3 3 8 3 8 3s5 0 8-3c0 0 3 2 4 6 0 0 3-3 2-7 0 0 5 0 9 5 0 0 0-5-3-8 0 0 4-1 8 1-2-6-8-10-14-8 0 0-1-3 1-6 0 0-6-2-8 4-6-4-14-2-18 6z"/></svg>
 
   <main class="wrap">
-    <div class="eyebrow">Contacto cero · una excepción</div>
+    <div class="eyebrow">El Cuervo · Contacto cero, una excepción</div>
 
     <div class="raven-wrap">
       <svg class="raven" viewBox="0 0 200 200" aria-hidden="true">
@@ -224,7 +233,8 @@
     </div>
 
     <h1><span class="word">Solo</span> <span class="word">quería</span> <span class="word">saber</span> <span class="word">cómo</span> <span class="word">estás</span></h1>
-    <p class="sub">Dijimos contacto cero, y lo respeto. Pero el cuervo me trajo una duda y no me dejaba dormir. Cinco preguntas, nada más. No hace falta que hablemos.</p>
+    <p class="quote">"No puede llover todo el tiempo."</p>
+    <p class="sub">Dijimos contacto cero, y lo respeto. Pero un cuervo cruzó la ventana con una duda y no me dejó dormir. Cinco preguntas, nada más. No hace falta que hablemos.</p>
     <div class="rule"></div>
 
     <form id="form">
@@ -286,8 +296,8 @@
       <path fill="currentColor" d="M100 60c-14-20-40-16-52 0 0 0-16-4-24 8 8 0 12 4 12 4-12 4-16 16-16 16 12-6 20-2 20-2-8 8-6 20-6 20 8-12 18-12 18-12s10-8 24-8 24 8 24 8 10 0 18 12c0 0 2-12-6-20 0 0 8-4 20 2 0 0-4-12-16-16 0 0 4-4 12-4-8-12-24-8-24-8-8-16-34-20-48 0z"/>
     </svg>
     <h2>Gracias.</h2>
-    <p>El cuervo ya voló con tu respuesta. Cuídate mucho por allá.</p>
-    <div class="nevermore">— Nevermore —</div>
+    <p>El cuervo ya voló con tu respuesta.<br>Y recuerda: no puede llover todo el tiempo.</p>
+    <div class="nevermore">— NEVERMORE —</div>
   </div>
 
   <!-- GSAP -->
@@ -333,6 +343,38 @@
   if(!matchMedia('(prefers-reduced-motion:reduce)').matches) draw();
   else { for(const s of stars){cx.beginPath();cx.arc(s.x,s.y,s.r,0,7);cx.fillStyle='rgba(220,230,255,.7)';cx.fill();} }
 
+  /* ----------  Lluvia (The Crow)  ---------- */
+  const rc = document.getElementById('rain');
+  const rx = rc.getContext('2d');
+  let drops=[], RW, RH;
+  function rResize(){
+    RW=rc.width=innerWidth; RH=rc.height=innerHeight;
+    const n=Math.min(220, Math.floor(RW/6));
+    drops=Array.from({length:n},()=>({
+      x:Math.random()*RW, y:Math.random()*RH,
+      len:Math.random()*18+10, sp:Math.random()*7+9,
+      a:Math.random()*.25+.12
+    }));
+  }
+  addEventListener('resize', rResize); rResize();
+  const wind=1.4;
+  function rainDraw(){
+    rx.clearRect(0,0,RW,RH);
+    rx.lineCap='round';
+    for(const d of drops){
+      rx.strokeStyle=`rgba(200,214,255,${d.a})`;
+      rx.lineWidth=1;
+      rx.beginPath();
+      rx.moveTo(d.x,d.y);
+      rx.lineTo(d.x+wind*2, d.y+d.len);
+      rx.stroke();
+      d.y+=d.sp; d.x+=wind;
+      if(d.y>RH){d.y=-d.len; d.x=Math.random()*RW;}
+    }
+    requestAnimationFrame(rainDraw);
+  }
+  if(!matchMedia('(prefers-reduced-motion:reduce)').matches) rainDraw();
+
   /* ----------  Entrada coreografiada (GSAP)  ---------- */
   window.addEventListener('load', ()=>{
     if(matchMedia('(prefers-reduced-motion:reduce)').matches) return;
@@ -340,7 +382,8 @@
     tl.from('.eyebrow',{y:-14,opacity:0,duration:.8})
       .from('.raven',{y:-30,opacity:0,scale:.8,duration:1,ease:'back.out(1.6)'},'-=.4')
       .from('h1 .word',{y:40,opacity:0,duration:.9,stagger:.12},'-=.5')
-      .from('.sub',{y:20,opacity:0,duration:.8},'-=.4')
+      .from('.quote',{opacity:0,duration:1.1,ease:'sine.out'},'-=.3')
+      .from('.sub',{y:20,opacity:0,duration:.8},'-=.5')
       .from('.rule',{scaleX:0,duration:.8,transformOrigin:'center'},'-=.5')
       .to('.q',{y:0,opacity:1,duration:.8,stagger:.14},'-=.2')
       .to('.closing',{y:0,opacity:1,duration:.9},'-=.2')
