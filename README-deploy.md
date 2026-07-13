@@ -22,32 +22,26 @@ Respuestas → Google Sheets. Hosting → subdominio con SSL de Cloudflare.
 
 ---
 
-## Paso 2 — Hosting (opción recomendada: Cloudflare Pages)
-Es lo más simple y ya lo has hecho antes (`*.stnflow.online`). Al ser Pages,
-Cloudflare gestiona el SSL solo.
+## Paso 2 — Publicar en Cloudflare Pages (con Git) → stnflow.online
+Mismo patrón que `dyck.stnflow.online` y `gilmar-estrategia`.
 
-**Opción A — arrastrar (sin Git):**
-1. Cloudflare Dashboard ▸ **Workers & Pages ▸ Create ▸ Pages ▸ Upload assets**.
-2. Arrastra la carpeta `cero-contacto` (solo se sube `index.html`).
-3. Se publica en `algo.pages.dev`.
+1. Sube este `index.html` a un repo nuevo en la cuenta GitHub **`stnflow-gif`**
+   (ej. repo `el-cuervo`), con el `index.html` en la **raíz**.
+2. Cloudflare ▸ **Workers & Pages ▸ Create ▸ Pages ▸ Connect to Git** ▸ elige el repo.
+   - Framework preset: **None**
+   - Build command: *(vacío)*
+   - Output dir: **`/`**
+   - Deploy → queda en `<proyecto>.pages.dev`.
 
-**Opción B — con Git:** conecta un repo con este `index.html` (build vacío, output = `/`).
+## Paso 3 — Subdominio + SSL
+Subdominio propuesto: **`elcuervo.stnflow.online`** (cámbialo si quieres).
 
----
-
-## Paso 3 — Subdominio propio + DNS a Cloudflare
-> Rellenar cuando definamos dominio y subdominio (ej. `paraella.tudominio.com`).
-
-Si el dominio **ya está en Cloudflare** (zona activa):
-- Pages ▸ tu proyecto ▸ **Custom domains ▸ Set up a domain** → escribe el subdominio.
-- Cloudflare crea el CNAME y emite el certificado automáticamente. Listo.
-
-Si el dominio está en **otro registrador (GoDaddy, etc.)** y NO quieres mover la zona:
-- En el DNS del registrador crea un **CNAME**:
-  - Nombre/Host: `paraella` (el subdominio)
-  - Valor: `tu-proyecto.pages.dev`
-  - Proxy/SSL: lo gestiona Pages en su lado.
-- En Cloudflare Pages ▸ Custom domains, agrega `paraella.tudominio.com` y espera la verificación.
+1. En el proyecto Pages ▸ **Custom domains ▸ Set up a domain** → `elcuervo.stnflow.online`.
+   Cloudflare te muestra el CNAME a crear.
+2. En **GoDaddy** (DNS de stnflow.online, NS = ns57/ns58.domaincontrol.com) crea:
+   - Tipo: **CNAME**  ·  Host: `elcuervo`  ·  Valor: `<proyecto>.pages.dev`  ·  TTL: 600
+   - **NO** un registro A.
+3. Cloudflare valida por DCV y emite el certificado SSL automáticamente. Listo 🖤
 
 ---
 
