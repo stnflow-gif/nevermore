@@ -1,0 +1,5 @@
+wrangler.jsonc
+.gitignore
+.assetsignore
+README-deploy.md
+google-apps-script.gs
