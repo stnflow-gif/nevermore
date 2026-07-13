@@ -25,21 +25,21 @@ Respuestas → Google Sheets. Hosting → subdominio con SSL de Cloudflare.
 ## Paso 2 — Publicar en Cloudflare Pages (con Git) → stnflow.online
 Mismo patrón que `dyck.stnflow.online` y `gilmar-estrategia`.
 
-1. Sube este `index.html` a un repo nuevo en la cuenta GitHub **`stnflow-gif`**
-   (ej. repo `el-cuervo`), con el `index.html` en la **raíz**.
-2. Cloudflare ▸ **Workers & Pages ▸ Create ▸ Pages ▸ Connect to Git** ▸ elige el repo.
+✅ Ya hecho: repo **`stnflow-gif/nevermore`** con `index.html` en la raíz.
+
+1. Cloudflare ▸ **Workers & Pages ▸ Create ▸ Pages ▸ Connect to Git** ▸ elige `nevermore`.
    - Framework preset: **None**
    - Build command: *(vacío)*
    - Output dir: **`/`**
-   - Deploy → queda en `<proyecto>.pages.dev`.
+   - Deploy → queda en `nevermore.pages.dev` (o similar).
 
 ## Paso 3 — Subdominio + SSL
-Subdominio propuesto: **`elcuervo.stnflow.online`** (cámbialo si quieres).
+Subdominio: **`nevermore.stnflow.online`**
 
-1. En el proyecto Pages ▸ **Custom domains ▸ Set up a domain** → `elcuervo.stnflow.online`.
+1. En el proyecto Pages ▸ **Custom domains ▸ Set up a domain** → `nevermore.stnflow.online`.
    Cloudflare te muestra el CNAME a crear.
 2. En **GoDaddy** (DNS de stnflow.online, NS = ns57/ns58.domaincontrol.com) crea:
-   - Tipo: **CNAME**  ·  Host: `elcuervo`  ·  Valor: `<proyecto>.pages.dev`  ·  TTL: 600
+   - Tipo: **CNAME**  ·  Host: `nevermore`  ·  Valor: `<proyecto>.pages.dev`  ·  TTL: 600
    - **NO** un registro A.
 3. Cloudflare valida por DCV y emite el certificado SSL automáticamente. Listo 🖤
 
