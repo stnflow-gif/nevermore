@@ -18,8 +18,10 @@ function doPost(e) {
     // Encabezados la primera vez
     if (sheet.getLastRow() === 0) {
       sheet.appendRow([
-        'Fecha', '¿Cómo estás?', '¿Cómo está USA?', 'USA (más)',
-        '¿Monster?', '¿Sandía?', '¿Revisión de seguridad?'
+        'Fecha', '¿Cómo estás?', 'Viaje USA', 'USA (más)',
+        '¿Cómo están las chicas?', 'Chicas (más)',
+        '¿Monster?', '¿Sandía?', '¿Froot Loops?', '¿Dr Pepper?',
+        '¿Revisión aeropuerto?', '¿Funaron a Gaby?', 'Gaby (más)'
       ]);
     }
 
@@ -29,9 +31,15 @@ function doPost(e) {
       p.como_estas || '',
       p.usa || '',
       p.usa_extra || '',
+      p.chicas || '',
+      p.chicas_extra || '',
       p.monster || '',
       p.sandia || '',
-      p.revision || ''
+      p.frootloops || '',
+      p.drpepper || '',
+      p.revision || '',
+      p.gaby || '',
+      p.gaby_extra || ''
     ]);
 
     return ContentService
